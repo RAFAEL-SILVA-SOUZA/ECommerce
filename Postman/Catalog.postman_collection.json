@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "1f58c1ae-d106-428a-86c3-eb7f56669de0",
+		"name": "Catalog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3853512"
+	},
+	"item": [
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7216/api/product",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products by Ids",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7216/api/product/ids?ids=d121361b-1d7c-4415-b494-009ee496c205&ids=9b3d9816-a6cf-47f2-bd4f-16a823adec8c",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"product",
+						"ids"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "d121361b-1d7c-4415-b494-009ee496c205"
+						},
+						{
+							"key": "ids",
+							"value": "9b3d9816-a6cf-47f2-bd4f-16a823adec8c"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

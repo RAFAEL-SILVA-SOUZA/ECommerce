@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "5fd8eabc-869b-4ded-8e64-82a5f419e90f",
+		"name": "Order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3853512"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cardName\": \"JOSE DA SILVA SOUZA\",\r\n    \"cardNumber\": \"5303441233248292\",\r\n    \"validDate\": \"2024-06-16\",\r\n    \"cvv\": \"467\",\r\n    \"itens\": [\r\n        {\r\n            \"itemId\": \"d121361b-1d7c-4415-b494-009ee496c205\",\r\n            \"quantity\":100\r\n        },\r\n        {\r\n            \"itemId\": \"9b3d9816-a6cf-47f2-bd4f-16a823adec8c\",\r\n            \"quantity\":100\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7260/api/Order",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7260",
+					"path": [
+						"api",
+						"Order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reproccess",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"cfcf75c2-cc15-402d-8953-fb4a31074b4b\",\r\n    \"cardName\": \"JOSE DA SILVA SOUZA\",\r\n    \"cardNumber\": \"5303441233248292\",\r\n    \"validDate\": \"2024-06-16\",\r\n    \"cvv\": \"467\",\r\n    \"itens\": [\r\n        {\r\n            \"itemId\": \"d121361b-1d7c-4415-b494-009ee496c205\",\r\n            \"quantity\":2\r\n        },\r\n        {\r\n            \"itemId\": \"9b3d9816-a6cf-47f2-bd4f-16a823adec8c\",\r\n            \"quantity\":2\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7260/api/Order",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7260",
+					"path": [
+						"api",
+						"Order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7260/api/Order/cfcf75c2-cc15-402d-8953-fb4a31074b4b",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7260",
+					"path": [
+						"api",
+						"Order",
+						"cfcf75c2-cc15-402d-8953-fb4a31074b4b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7260/api/Order",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7260",
+					"path": [
+						"api",
+						"Order"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
