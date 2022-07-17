@@ -1,8 +1,6 @@
-﻿using MediatR;
-
-namespace ECommerce.Order.Domain.Messages
+﻿namespace ECommerce.Order.Domain.Messages
 {
-    public class PaymentMessage :  INotification
+    public class PaymentMessage
     {
         public PaymentMessage(string cardName, string cardNumber, string validDate, string cvv, Guid orderId, decimal amount)
         {

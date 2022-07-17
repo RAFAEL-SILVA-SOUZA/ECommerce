@@ -13,8 +13,7 @@ builder.Services.AddTransient<IPaymentService, PaymentService>();
 builder.Services.AddCap(x =>
 {
     var builder = WebApplication.CreateBuilder(args);
-    ConfigurationManager configuration = builder.Configuration;
-    x.UseSqlServer(configuration.GetConnectionString("PaymentConnection"));
+    x.UseSqlServer(builder.Configuration.GetConnectionString("PaymentConnection"));
     x.UseRabbitMQ(o =>
     {
         o.HostName = "localhost";

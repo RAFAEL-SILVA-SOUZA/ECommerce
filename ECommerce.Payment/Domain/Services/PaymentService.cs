@@ -17,7 +17,7 @@ namespace ECommerce.Payment.Domain.Services
         {
             _configuration = configuration;
             _capPublisher = capPublisher;
-            _baseUrl = configuration["Cielo:url"];
+            _baseUrl = configuration["Gateway:url"];
         }
 
         [CapSubscribe("ecomerce.payment.proccess")]

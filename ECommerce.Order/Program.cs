@@ -1,7 +1,6 @@
 using ECommerce.Order.Extensions;
-using System.Text.Json.Serialization;
-using MediatR;
 using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,13 +17,12 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMediatR(typeof(Program).Assembly);
 builder.Services.RegisterServices();
 builder.Services.AddCap(x =>
 {
     var builder = WebApplication.CreateBuilder(args);
-    ConfigurationManager configuration = builder.Configuration;
-    x.UseSqlServer(configuration.GetConnectionString("OrderConnection"));
+
+    x.UseSqlServer(builder.Configuration.GetConnectionString("OrderConnection"));
     x.UseRabbitMQ(o =>
     {
         o.HostName = "localhost";
@@ -55,7 +53,7 @@ app.Use(async (ctx, _next) =>
     try
     {
         await _next(ctx);
-        
+
     }
     catch (Exception ex)
     {
