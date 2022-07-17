@@ -7,7 +7,7 @@ using Microsoft.Data.SqlClient;
 
 namespace ECommerce.Payment.Domain.Services
 {
-    public class PaymentService : IPaymentService
+    public class PaymentService :ICapSubscribe, IPaymentService
     {
         private readonly IConfiguration _configuration;
         private readonly ICapPublisher _capPublisher;
@@ -20,6 +20,7 @@ namespace ECommerce.Payment.Domain.Services
             _baseUrl = configuration["Cielo:url"];
         }
 
+        [CapSubscribe("ecomerce.payment.proccess")]
         public async Task ProccessPayment(PaymentEntity paymentEntity)
         {
             var paymentResponseDto = await ProccessPaymentCielo(paymentEntity);

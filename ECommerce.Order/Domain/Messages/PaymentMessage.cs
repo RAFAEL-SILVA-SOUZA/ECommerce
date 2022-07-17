@@ -1,10 +1,10 @@
 ﻿using MediatR;
 
-namespace ECommerce.Order.Domain.Notifications
+namespace ECommerce.Order.Domain.Messages
 {
-    public class PaymentNotification :  INotification
+    public class PaymentMessage :  INotification
     {
-        public PaymentNotification(string cardName, string cardNumber, string validDate, string cvv, Guid orderId, decimal amount)
+        public PaymentMessage(string cardName, string cardNumber, string validDate, string cvv, Guid orderId, decimal amount)
         {
             CardName = cardName;
             CardNumber = cardNumber;

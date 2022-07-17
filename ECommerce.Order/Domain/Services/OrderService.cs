@@ -1,10 +1,9 @@
-﻿using ECommerce.Order.Domain.Entities;
+﻿using DotNetCore.CAP;
+using ECommerce.Order.Domain.Entities;
 using ECommerce.Order.Domain.Entities.Enums;
-using ECommerce.Order.Domain.Notifications;
+using ECommerce.Order.Domain.Messages;
 using ECommerce.Order.Dtos;
 using ECommerce.Order.Infra;
-using Flurl.Util;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Order.Domain.Services
@@ -13,13 +12,13 @@ namespace ECommerce.Order.Domain.Services
     {
         private readonly OrderDbContext _orderDbContext;
         private readonly ICatalogItemService _catalogItemService;
-        private readonly IMediator _mediator;
+        private readonly ICapPublisher _capPublisher;
 
-        public OrderService(OrderDbContext orderDbContext, ICatalogItemService catalogItemService, IMediator mediator)
+        public OrderService(OrderDbContext orderDbContext, ICatalogItemService catalogItemService, ICapPublisher capPublisher)
         {
             _orderDbContext = orderDbContext;
             _catalogItemService = catalogItemService;
-            _mediator = mediator;
+            _capPublisher = capPublisher;
         }
 
         public async Task<IList<OrderEnityDto>> GetAllOrders()
@@ -55,21 +54,21 @@ namespace ECommerce.Order.Domain.Services
             await _orderDbContext.Orders.AddAsync(order);
             await _orderDbContext.SaveChangesAsync();
 
-            await _mediator.Publish(new PaymentNotification(orderCreateDto.CardName,
+            await _capPublisher.PublishAsync("ecomerce.payment.proccess", new PaymentMessage(orderCreateDto.CardName,
                 orderCreateDto.CardNumber,
                 orderCreateDto.ValidDate,
                 orderCreateDto.Cvv,
                 order.Id,
                 order.TotalAmount));
 
-            return await GetOrderById(order.Id);
+            return new OrderEnityDto(order);
         }
 
         public async Task<OrderEnityDto> ReproccessOrder(OrderReproccessDto orderReproccessDto)
         {
             var order = await _orderDbContext.Orders
-                .Include(x=>x.Itens)
-                .SingleAsync(x=>x.Id == orderReproccessDto.Id);
+                .Include(x => x.Itens)
+                .SingleAsync(x => x.Id == orderReproccessDto.Id);
 
             if (order.OrderStatus == OrderStatus.Acepted)
             {
@@ -91,7 +90,8 @@ namespace ECommerce.Order.Domain.Services
 
             _orderDbContext.Orders.Update(order);
             await _orderDbContext.SaveChangesAsync();
-            await _mediator.Publish(new PaymentNotification(orderReproccessDto.CardName,
+
+            await _capPublisher.PublishAsync("ecomerce.payment.proccess", new PaymentMessage(orderReproccessDto.CardName,
                 orderReproccessDto.CardNumber,
                 orderReproccessDto.ValidDate,
                 orderReproccessDto.Cvv,
