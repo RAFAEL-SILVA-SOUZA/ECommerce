@@ -7,7 +7,8 @@ namespace ECommerce.Order.Domain.Services
     {
         Task<IList<OrderEnityDto>> GetAllOrders();
         Task<OrderEnityDto?> GetOrderById(Guid id);
-        Task CreateOrder(OrderCreateDto orderCreateDto);
-        Task ChangeStatus(Guid id, OrderStatus orderStatus);
+        Task<OrderEnityDto> CreateOrder(OrderCreateDto orderCreateDto);
+        Task<OrderEnityDto> ReproccessOrder(OrderReproccessDto orderReproccessDto);
+        Task ChangeStatus(Guid id, OrderStatus orderStatus, string gatewayName, Guid tranzactionId);
     }
 }

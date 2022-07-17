@@ -4,20 +4,20 @@ using Flurl.Http;
 
 namespace ECommerce.Order.Domain.Services
 {
-    public class ProductService : IProductService
+    public class CatalogItemService : ICatalogItemService
     {
         private readonly Url _baseUrl;
-        public ProductService(IConfiguration configuration)
+        public CatalogItemService(IConfiguration configuration)
         {
             _baseUrl = configuration["Catalog:url"];
         }
 
-        public async Task<IList<Product>> GetProducts(Guid[] ids)
+        public async Task<IList<CatalogItem>> GetProducts(Guid[] ids)
         {
             var request = _baseUrl
                 .AppendPathSegment("/ids")
                 .SetQueryParam("ids", ids);
-            return await request.GetJsonAsync<Product[]>();
+            return await request.GetJsonAsync<CatalogItem[]>();
         }
     }
 }

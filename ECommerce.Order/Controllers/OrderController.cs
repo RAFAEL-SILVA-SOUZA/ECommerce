@@ -18,8 +18,15 @@ namespace ECommerce.Order.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(OrderCreateDto orderCreateDto)
         {
-            await _orderService.CreateOrder(orderCreateDto);
-            return Ok();
+            return Ok(await _orderService.CreateOrder(orderCreateDto));
+        }
+
+
+
+        [HttpPost("reproccess")]
+        public async Task<IActionResult> Post(OrderReproccessDto orderReproccessDto)
+        {
+            return Ok(await _orderService.ReproccessOrder(orderReproccessDto));
         }
 
         [HttpGet]

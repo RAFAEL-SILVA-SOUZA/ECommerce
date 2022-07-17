@@ -11,6 +11,7 @@ namespace ECommerce.Order.Infra
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasDefaultValue(Guid.NewGuid());
             builder.Property(x => x.Price).HasColumnType("decimal(18,2)");
+
             builder.HasOne(x => x.OrderEntity)
                 .WithMany(x => x.Itens)
                 .HasForeignKey(x => x.OrderEntityId);

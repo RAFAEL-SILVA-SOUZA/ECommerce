@@ -2,8 +2,8 @@
 
 namespace ECommerce.Order.Domain.Services
 {
-    public interface IProductService
+    public interface ICatalogItemService
     {
-        Task<IList<Product>> GetProducts(Guid[] ids);
+        Task<IList<CatalogItem>> GetProducts(Guid[] ids);
     }
 }

@@ -1,4 +1,5 @@
-﻿using ECommerce.Order.Domain.Services;
+﻿using ECommerce.Order.Domain.Consumer;
+using ECommerce.Order.Domain.Services;
 using ECommerce.Order.Infra;
 
 namespace ECommerce.Order.Extensions
@@ -7,7 +8,8 @@ namespace ECommerce.Order.Extensions
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IPaymentConsumer, PaymentConsumer>();
+            services.AddTransient<ICatalogItemService, CatalogItemService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddDbContext<OrderDbContext>();
         }
