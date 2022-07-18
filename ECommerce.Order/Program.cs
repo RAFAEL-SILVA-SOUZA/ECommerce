@@ -1,6 +1,8 @@
 using ECommerce.Order.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using ECommerce.Order.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.DefaultIgnoreCondition =
         JsonIgnoreCondition.WhenWritingNull;
 });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,9 +28,10 @@ builder.Services.AddCap(x =>
     x.UseSqlServer(builder.Configuration.GetConnectionString("OrderConnection"));
     x.UseRabbitMQ(o =>
     {
-        o.HostName = "localhost";
+        o.HostName = "rabbitmq";
         o.Password = "guest";
         o.UserName = "guest";
+        o.Port = 5672;
     });
 });
 
@@ -35,35 +39,21 @@ builder.Services.AddCap(x =>
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var serviceScope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var context = serviceScope.ServiceProvider.GetRequiredService<OrderDbContext>();
+    if (context.Database.GetPendingMigrations().Any())
+        context.Database.Migrate();
 }
 
-app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Use(async (ctx, _next) =>
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    try
-    {
-        await _next(ctx);
-
-    }
-    catch (Exception ex)
-    {
-        ctx.Response.StatusCode = 500;
-        ctx.Response.ContentType = "application/json";
-        await ctx.Response.WriteAsync(JsonConvert.SerializeObject(new { Error = ex.Message }));
-    }
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce.Order v1");
 });
-
+//app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 app.Run();
-
-
-public partial class Program { };

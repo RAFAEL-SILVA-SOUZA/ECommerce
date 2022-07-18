@@ -16,3 +16,9 @@ dotnet ef database update --project "ECommerce.Catalog" --startup-project "EComm
 # Subir o RabbitMQ
 docker pull rabbitmq:3-management
 docker run -d --rm -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+
+docker-compose -f docker-compose-infra.yml up -d --build
+docker-compose -f docker-compose-infra.yml down
+docker-compose up -d --build
+docker-compose down --rm
+

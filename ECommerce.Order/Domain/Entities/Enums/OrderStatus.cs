@@ -4,6 +4,7 @@
     {
         Created,
         Acepted,
-        Rejected
+        Rejected,
+        Reprocessing
     }
 }

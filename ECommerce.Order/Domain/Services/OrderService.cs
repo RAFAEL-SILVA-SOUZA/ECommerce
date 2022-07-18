@@ -77,6 +77,7 @@ namespace ECommerce.Order.Domain.Services
 
             order.Itens.Clear();
             order.TotalAmount = 0;
+            order.OrderStatus = OrderStatus.Reprocessing;
 
             var items = await _catalogItemService
                 .GetProducts(orderReproccessDto.Itens.Select(x => x.ItemId)

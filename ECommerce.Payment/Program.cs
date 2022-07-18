@@ -16,9 +16,10 @@ builder.Services.AddCap(x =>
     x.UseSqlServer(builder.Configuration.GetConnectionString("PaymentConnection"));
     x.UseRabbitMQ(o =>
     {
-        o.HostName = "localhost";
+        o.HostName = "rabbitmq";
         o.Password = "guest";
         o.UserName = "guest";
+        o.Port = 5672;
     });
     x.UseDashboard();
 });
@@ -33,7 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
