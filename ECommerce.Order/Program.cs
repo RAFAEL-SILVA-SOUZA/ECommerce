@@ -42,8 +42,7 @@ var app = builder.Build();
 using (var serviceScope = app.Services.CreateScope())
 {
     var context = serviceScope.ServiceProvider.GetRequiredService<OrderDbContext>();
-    if (context.Database.GetPendingMigrations().Any())
-        context.Database.Migrate();
+    context.Database.Migrate();
 }
 
 

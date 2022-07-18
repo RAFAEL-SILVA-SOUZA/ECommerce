@@ -6,11 +6,11 @@ docker run -e "ACCEPT_EULA=1" -e "MSSQL_SA_PASSWORD=1q2w3e4r@#$" -e "MSSQL_PID=D
 # Criar o banco de dados na mão
 
 # Migrations do projeto Order
-dotnet ef  migrations add initial-add-columns --project "ECommerce.Order" --startup-project "ECommerce.Order" --context "ECommerce.Order.Infra.OrderDbContext"
+# dotnet ef  migrations add initial-add-columns --project "ECommerce.Order" --startup-project "ECommerce.Order" --context "ECommerce.Order.Infra.OrderDbContext"
 dotnet ef database update --project "ECommerce.Order" --startup-project "ECommerce.Order" --context "ECommerce.Order.Infra.OrderDbContext"
 
 # Migrations do projeto Calatog
-dotnet ef  migrations add initial-migration --project "ECommerce.Catalog" --startup-project "ECommerce.Catalog" --context "ECommerce.Catalog.Infra.CatalogDBContext"
+# dotnet ef  migrations add initial-migration --project "ECommerce.Catalog" --startup-project "ECommerce.Catalog" --context "ECommerce.Catalog.Infra.CatalogDBContext"
 dotnet ef database update --project "ECommerce.Catalog" --startup-project "ECommerce.Catalog" --context "ECommerce.Catalog.Infra.CatalogDBContext"
 
 # Subir o RabbitMQ
@@ -20,5 +20,5 @@ docker run -d --rm -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 docker-compose -f docker-compose-infra.yml up -d --build
 docker-compose -f docker-compose-infra.yml down
 docker-compose up -d --build
-docker-compose down --rm
+docker-compose down
 
