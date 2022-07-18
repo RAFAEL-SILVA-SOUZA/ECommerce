@@ -2,6 +2,14 @@ using ECommerce.Payment.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    var env = hostingContext.HostingEnvironment;
+    config.AddJsonFile("appsettings.json", optional: true)
+        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+    config.AddEnvironmentVariables();
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -12,13 +20,13 @@ builder.Services.AddTransient<IPaymentService, PaymentService>();
 
 builder.Services.AddCap(x =>
 {
-    var builder = WebApplication.CreateBuilder(args);
-    x.UseSqlServer(builder.Configuration.GetConnectionString("PaymentConnection"));
+    var configuration = builder.Configuration;
+    x.UseSqlServer(configuration.GetConnectionString("PaymentConnection"));
     x.UseRabbitMQ(o =>
     {
-        o.HostName = "rabbitmq";
-        o.Password = "guest";
-        o.UserName = "guest";
+        o.HostName = configuration["RabbitMQ:Host"];
+        o.Password = configuration["RabbitMQ:UserName"];
+        o.UserName = configuration["RabbitMQ:Password"];
         o.Port = 5672;
     });
     x.UseDashboard();

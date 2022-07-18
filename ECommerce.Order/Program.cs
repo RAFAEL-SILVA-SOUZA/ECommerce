@@ -1,10 +1,17 @@
-using ECommerce.Order.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 using ECommerce.Order.Infra;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using ECommerce.Order.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    var env = hostingContext.HostingEnvironment;
+    config.AddJsonFile("appsettings.json", optional: true)
+        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+    config.AddEnvironmentVariables();
+});
 
 // Add services to the container.
 
@@ -23,16 +30,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.RegisterServices();
 builder.Services.AddCap(x =>
 {
-    var builder = WebApplication.CreateBuilder(args);
-
-    x.UseSqlServer(builder.Configuration.GetConnectionString("OrderConnection"));
+    var configuration = builder.Configuration;
+    x.UseSqlServer(configuration.GetConnectionString("OrderConnection"));
     x.UseRabbitMQ(o =>
     {
-        o.HostName = "rabbitmq";
-        o.Password = "guest";
-        o.UserName = "guest";
+        o.HostName = configuration["RabbitMQ:Host"];
+        o.Password = configuration["RabbitMQ:UserName"];
+        o.UserName = configuration["RabbitMQ:Password"];
         o.Port = 5672;
     });
+    x.UseDashboard();
 });
 
 

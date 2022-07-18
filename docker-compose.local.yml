@@ -3,7 +3,7 @@ version: '3.4'
 services:
   mssql:
     image: "mcr.microsoft.com/mssql/server"
-    container_name: mssql
+    container_name: mssql-local
     environment:
       SA_PASSWORD: "1q2w3e4r@#"
       ACCEPT_EULA: "Y"   
@@ -17,7 +17,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
+    container_name: rabbitmq-local
     hostname: rabbitmq
     ports:
         - 5672:5672

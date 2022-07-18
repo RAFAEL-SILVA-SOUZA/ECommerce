@@ -2,14 +2,16 @@
 
 public class OrderItem
 {
-    public OrderItem(string description, decimal price, int quantity)
+    public OrderItem(string description, decimal price, int quantity, Guid productId)
     {
         Description = description;
         Price = price;
+        ProductId = productId;
         SetQuantity(quantity);
     }
 
     public Guid Id { get; set; }
+    public Guid ProductId { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
     public int Quantity { get; set; }

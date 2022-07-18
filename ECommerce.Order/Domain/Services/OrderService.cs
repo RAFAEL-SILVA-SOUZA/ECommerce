@@ -45,10 +45,20 @@ namespace ECommerce.Order.Domain.Services
                 .GetProducts(orderCreateDto.Itens.Select(x => x.ItemId)
                     .ToArray());
 
+            var verifyStock = from item in items
+                              join itemOrder in orderCreateDto.Itens on item.Id equals itemOrder.ItemId
+                              where item.Quantity < itemOrder.Quantity
+                              select item;
+
+            if (verifyStock.Any())
+            {
+                throw new ArgumentException("Item(s) do pedido sem estoque.");
+            }
+
             foreach (var item in items)
             {
-                var quantity = orderCreateDto.Itens.Single(x => x.ItemId == item.Id);
-                order.AddItens(new OrderItem(item.Description, item.Price, quantity.Quantity));
+                var itemOrder = orderCreateDto.Itens.Single(x => x.ItemId == item.Id);
+                order.AddItens(new OrderItem(item.Description, item.Price, itemOrder.Quantity, itemOrder.ItemId));
             }
 
             await _orderDbContext.Orders.AddAsync(order);
@@ -75,6 +85,16 @@ namespace ECommerce.Order.Domain.Services
                 throw new ArgumentException("Ordem com pagamento efetuado, não pode ser reprocessada");
             }
 
+            var verifyStock = from item in order.Itens
+                              join itemOrder in orderReproccessDto.Itens on item.Id equals itemOrder.ItemId
+                              where item.Quantity < itemOrder.Quantity
+                              select item;
+
+            if (verifyStock.Any())
+            {
+                throw new ArgumentException("Item(s) do pedido sem estoque.");
+            }
+
             order.Itens.Clear();
             order.TotalAmount = 0;
             order.OrderStatus = OrderStatus.Reprocessing;
@@ -85,8 +105,8 @@ namespace ECommerce.Order.Domain.Services
 
             foreach (var item in items)
             {
-                var quantity = orderReproccessDto.Itens.Single(x => x.ItemId == item.Id);
-                order.AddItens(new OrderItem(item.Description, item.Price, quantity.Quantity));
+                var itemOrder = orderReproccessDto.Itens.Single(x => x.ItemId == item.Id);
+                order.AddItens(new OrderItem(item.Description, item.Price, itemOrder.Quantity, itemOrder.ItemId));
             }
 
             _orderDbContext.Orders.Update(order);
@@ -104,7 +124,11 @@ namespace ECommerce.Order.Domain.Services
 
         public async Task ChangeStatus(Guid id, OrderStatus orderStatus, string gatewayName, Guid tranzactionId)
         {
-            var order = await _orderDbContext.Orders.FindAsync(id);
+            var order = await _orderDbContext
+                .Orders
+                .Include(x => x.Itens)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (order != null)
             {
                 order.OrderStatus = orderStatus;
@@ -114,6 +138,14 @@ namespace ECommerce.Order.Domain.Services
 
             _orderDbContext.Orders.Update(order);
             await _orderDbContext.SaveChangesAsync();
+
+            if (order.OrderStatus == OrderStatus.Acepted)
+                await _capPublisher.PublishAsync("ecomerce.catalog.stock", order.Itens.Select(x =>
+                    new
+                    {
+                        ItemId = x.ProductId,
+                        x.Quantity
+                    }).ToArray());
         }
     }
 }

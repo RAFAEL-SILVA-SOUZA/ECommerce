@@ -1,6 +1,23 @@
 version: '3.4'
 
 services:
+  mssql:
+    image: "mcr.microsoft.com/mssql/server"
+    container_name: mssql
+    environment:
+      SA_PASSWORD: "1q2w3e4r@#"
+      ACCEPT_EULA: "Y"   
+    ports:
+      - "11433:1433" 
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+
   ecommerce-order:
     container_name: ecommerceorder
     build:
@@ -10,6 +27,9 @@ services:
       - "80"
     ports:
       - "5100:80"    
+    depends_on:
+      - mssql
+      - rabbitmq
 
   ecommerce-catalog:
     container_name: ecommercecatalog
@@ -18,6 +38,9 @@ services:
       dockerfile: ./ECommerce.Catalog/Dockerfile
     ports:
       - "5200:80"   
+    depends_on:
+      - mssql
+      - rabbitmq
 
   ecommerce-payment:
     container_name: ecommercepayment
@@ -26,6 +49,9 @@ services:
       dockerfile: ./ECommerce.Payment/Dockerfile
     ports:
       - "5300:80"
+    depends_on:
+      - mssql
+      - rabbitmq
 
   ecommerce-gateway:
     container_name: ecommercegateway
