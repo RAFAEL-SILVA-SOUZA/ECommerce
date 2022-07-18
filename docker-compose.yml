@@ -7,6 +7,11 @@ services:
     environment:
       SA_PASSWORD: "1q2w3e4r@#"
       ACCEPT_EULA: "Y"   
+    #volumes:
+    #  - "./SqlScripts:/usr/src/app/"
+    #command: 
+    #  - "/usr/src/app/sqlserver-init.sh"
+    #  - "/usr/src/app/migrations.sh"
     ports:
       - "11433:1433" 
 
@@ -39,7 +44,6 @@ services:
     ports:
       - "5200:80"   
     depends_on:
-      - mssql
       - rabbitmq
 
   ecommerce-payment:
@@ -49,9 +53,6 @@ services:
       dockerfile: ./ECommerce.Payment/Dockerfile
     ports:
       - "5300:80"
-    depends_on:
-      - mssql
-      - rabbitmq
 
   ecommerce-gateway:
     container_name: ecommercegateway

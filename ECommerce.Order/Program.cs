@@ -1,7 +1,7 @@
+using ECommerce.Order.Extensions;
 using ECommerce.Order.Infra;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using ECommerce.Order.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +25,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterServices();
@@ -62,4 +63,7 @@ app.UseSwaggerUI(c =>
 //app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+app.UseHealthChecks("/status-text");
+
 app.Run();

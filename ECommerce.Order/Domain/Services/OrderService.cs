@@ -134,6 +134,7 @@ namespace ECommerce.Order.Domain.Services
                 order.OrderStatus = orderStatus;
                 order.GatewayName = gatewayName;
                 order.TranzactionId = tranzactionId;
+                order.UpdatedAt = DateTime.Now;
             }
 
             _orderDbContext.Orders.Update(order);
