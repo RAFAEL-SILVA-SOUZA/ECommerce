@@ -4,6 +4,8 @@ services:
   ecommerce-mssql:
     image: "mcr.microsoft.com/mssql/server"
     container_name: ecommercemssql
+    volumes:
+      - mssql-server-data:/var/opt/mssql/data
     environment:
       SA_PASSWORD: "1q2w3e4r@#"
       ACCEPT_EULA: "Y"   
@@ -60,3 +62,6 @@ services:
     build:
       context: .
       dockerfile: ./ECommerce.Gateway/Dockerfile 
+
+volumes:
+  mssql-server-data:
