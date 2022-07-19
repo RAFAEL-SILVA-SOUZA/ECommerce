@@ -2,6 +2,7 @@ using ECommerce.Order.Extensions;
 using ECommerce.Order.Infra;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using ECommerce.Order;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,7 @@ app.UseSwaggerUI(c =>
 });
 //app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseErrorHandlingMiddleware();
 app.MapControllers();
 
 app.UseHealthChecks("/status-text");

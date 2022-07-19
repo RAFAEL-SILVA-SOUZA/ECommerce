@@ -6,7 +6,7 @@ namespace ECommerce.Order.Infra
     public class OrderDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
-        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
 
         public OrderDbContext(DbContextOptions<OrderDbContext> contextOptions, 
             IConfiguration configuration) :base(contextOptions)

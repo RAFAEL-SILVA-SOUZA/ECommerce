@@ -1,4 +1,5 @@
 ﻿using ECommerce.Order.Domain.Entities;
+using ECommerce.Order.Domain.Services.Contracts;
 using Flurl;
 using Flurl.Http;
 

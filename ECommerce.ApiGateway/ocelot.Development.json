@@ -1,0 +1,121 @@
+{
+  "Routes": [
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/order",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7260
+        }
+      ],
+      "UpstreamPathTemplate": "/order",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Options" ],
+      "SwaggerKey": "order"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/order/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7260
+        }
+      ],
+      "UpstreamPathTemplate": "/order/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "SwaggerKey": "order"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7216
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "catalog"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7216
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "catalog"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/payment",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7178
+        }
+      ],
+      "UpstreamPathTemplate": "/payment",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "payment"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/payment/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7178
+        }
+      ],
+      "UpstreamPathTemplate": "/payment/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "payment"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "order",
+      "Config": [
+        {
+          "Name": "Api Order",
+          "Version": "v1",
+          "Url": "https://localhost:7260/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "catalog",
+      "Config": [
+        {
+          "Name": "Api Catalog",
+          "Version": "v1",
+          "Url": "https://localhost:7216/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "payment",
+      "Config": [
+        {
+          "Name": "Api Payment",
+          "Version": "v1",
+          "Url": "https://localhost:7178/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {}
+}

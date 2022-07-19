@@ -1,0 +1,121 @@
+{
+  "Routes": [
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/order",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerce-order",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/order",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Options" ],
+      "SwaggerKey": "order"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/order/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerce-order",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/order/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "SwaggerKey": "order"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerce-catalog",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "catalog"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerce-catalog",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "catalog"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/payment",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerce-payment",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/payment",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "payment"
+    },
+    {
+      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/payment/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerce-payment",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/payment/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "payment"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "order",
+      "Config": [
+        {
+          "Name": "Api Order",
+          "Version": "v1",
+          "Url": "http://ecommerce-catalog/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "catalog",
+      "Config": [
+        {
+          "Name": "Api Catalog",
+          "Version": "v1",
+          "Url": "http://ecommerce-order/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "payment",
+      "Config": [
+        {
+          "Name": "Api Payment",
+          "Version": "v1",
+          "Url": "http://ecommerce-payment/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {}
+}

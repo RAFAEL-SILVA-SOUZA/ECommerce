@@ -1,9 +1,9 @@
-﻿using ECommerce.Payment.Domain.Entity;
+﻿using ECommerce.Payment.Models;
 
 namespace ECommerce.Payment.Domain.Services
 {
     public interface IPaymentService
     {
-        Task ProccessPayment(PaymentEntity paymentEntity);
+        Task ProccessPayment(PaymentRequest paymentEntity);
     }
 }

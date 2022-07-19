@@ -22,12 +22,12 @@ namespace ECommerce.Order.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ECommerce.Order.Domain.Entities.OrderEntity", b =>
+            modelBuilder.Entity("ECommerce.Order.Domain.Entities.PurchaseOrder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("1c2af2ca-3e5f-4a94-be32-328e57e9de9e"));
+                        .HasDefaultValue(new Guid("144a60df-8847-4bb5-a110-28e58439b694"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -49,15 +49,15 @@ namespace ECommerce.Order.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("PurchaseOrders");
                 });
 
-            modelBuilder.Entity("ECommerce.Order.Domain.Entities.OrderItem", b =>
+            modelBuilder.Entity("ECommerce.Order.Domain.Entities.PurchaseOrderItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("0ec92fea-33be-47fb-82ab-ee55ee9d5f84"));
+                        .HasDefaultValue(new Guid("11508e44-1fd9-4e3f-a99e-dd2cc5798857"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -78,23 +78,23 @@ namespace ECommerce.Order.Migrations
 
                     b.HasIndex("OrderEntityId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("PurchaseOrderItem");
                 });
 
-            modelBuilder.Entity("ECommerce.Order.Domain.Entities.OrderItem", b =>
+            modelBuilder.Entity("ECommerce.Order.Domain.Entities.PurchaseOrderItem", b =>
                 {
-                    b.HasOne("ECommerce.Order.Domain.Entities.OrderEntity", "OrderEntity")
-                        .WithMany("Itens")
+                    b.HasOne("ECommerce.Order.Domain.Entities.PurchaseOrder", "PurchaseOrder")
+                        .WithMany("PurchaseOrderItems")
                         .HasForeignKey("OrderEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrderEntity");
+                    b.Navigation("PurchaseOrder");
                 });
 
-            modelBuilder.Entity("ECommerce.Order.Domain.Entities.OrderEntity", b =>
+            modelBuilder.Entity("ECommerce.Order.Domain.Entities.PurchaseOrder", b =>
                 {
-                    b.Navigation("Itens");
+                    b.Navigation("PurchaseOrderItems");
                 });
 #pragma warning restore 612, 618
         }

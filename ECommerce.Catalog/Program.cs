@@ -1,3 +1,4 @@
+using ECommerce.Catalog;
 using ECommerce.Catalog.Extensions;
 using ECommerce.Catalog.Infra;
 using Microsoft.EntityFrameworkCore;
@@ -51,5 +52,6 @@ app.UseSwaggerUI(c =>
 });
 //app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseErrorHandlingMiddleware();
 app.MapControllers();
 app.Run();

@@ -1,5 +1,5 @@
-﻿using ECommerce.Order.Domain.Services;
-using ECommerce.Order.Dtos;
+﻿using ECommerce.Order.Domain.Services.Contracts;
+using ECommerce.Order.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Order.Controllers
@@ -8,38 +8,28 @@ namespace ECommerce.Order.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderService _orderService;
+        private readonly IPurchaseOrderService _purchaseOrderService;
 
-        public OrderController(IOrderService orderService)
-        {
-            _orderService = orderService;
-        }
+        public OrderController(IPurchaseOrderService purchaseOrderService)
+           => _purchaseOrderService = purchaseOrderService;
 
         [HttpPost]
-        public async Task<IActionResult> Post(OrderCreateDto orderCreateDto)
-        {
-            return Ok(await _orderService.CreateOrder(orderCreateDto));
-        }
-
-
+        public async Task<IActionResult> Post(PurchaseOrderCreateRequest purchaseOrderCreateRequest)
+           => Ok(await _purchaseOrderService.CreateOrder(purchaseOrderCreateRequest));
 
         [HttpPost("reproccess")]
-        public async Task<IActionResult> Post(OrderReproccessDto orderReproccessDto)
-        {
-            return Ok(await _orderService.ReproccessOrder(orderReproccessDto));
-        }
+        public async Task<IActionResult> Post(PurchaseOrderReproccessRequest purchaseOrderReproccessRequest)
+           => Ok(await _purchaseOrderService.ReproccessOrder(purchaseOrderReproccessRequest));
 
         [HttpGet]
         public async Task<IActionResult> Get()
-        {
-            return Ok(await _orderService.GetAllOrders());
-        }
+           => Ok(await _purchaseOrderService.GetAllOrders());
 
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var order = await _orderService.GetOrderById(id);
+            var order = await _purchaseOrderService.GetOrderById(id);
             return order != null ? Ok(order) : NotFound();
         }
     }

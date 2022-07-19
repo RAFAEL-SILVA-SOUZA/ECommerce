@@ -1,4 +1,8 @@
+using System.Text.Json.Serialization;
+using ECommerce.Payment;
 using ECommerce.Payment.Domain.Services;
+using ECommerce.Payment.Infra;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,18 +14,18 @@ builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
     config.AddEnvironmentVariables();
 });
 
-// Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<PaymentDbContext>();
 builder.Services.AddTransient<IPaymentService, PaymentService>();
 
 builder.Services.AddCap(x =>
 {
     var configuration = builder.Configuration;
-    x.UseSqlServer(configuration.GetConnectionString("PaymentConnection"));
+    x.UseEntityFramework<PaymentDbContext>();
     x.UseRabbitMQ(o =>
     {
         o.HostName = configuration["RabbitMQ:Host"];
@@ -32,21 +36,35 @@ builder.Services.AddCap(x =>
     x.UseDashboard();
 });
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.
+        Add(new JsonStringEnumConverter());
+
+    options.JsonSerializerOptions.DefaultIgnoreCondition =
+        JsonIgnoreCondition.WhenWritingNull;
+});
+
 var app = builder.Build();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<PaymentDbContext>();
+    context.Database.Migrate();
+}
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce.Payment v1");
+});
 
 
 //app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseErrorHandlingMiddleware();
 app.MapControllers();
-
 app.Run();

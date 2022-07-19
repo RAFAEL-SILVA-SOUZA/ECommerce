@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1f58c1ae-d106-428a-86c3-eb7f56669de0",
+		"_postman_id": "20d0a6f9-a03c-496d-bcbf-0a776eaf94f4",
 		"name": "Catalog",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "3853512"
@@ -12,15 +12,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:7216/api/product",
-					"protocol": "https",
+					"raw": "http://localhost:5000/Catalog",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "7216",
+					"port": "5000",
 					"path": [
-						"api",
-						"product"
+						"Catalog"
 					]
 				}
 			},
@@ -32,25 +31,24 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:7216/api/product/ids?ids=d121361b-1d7c-4415-b494-009ee496c205&ids=9b3d9816-a6cf-47f2-bd4f-16a823adec8c",
-					"protocol": "https",
+					"raw": "http://localhost:5000/catalog/ids?ids=b32cb73e-9b62-46af-93be-20f3540ba9f2&ids=8b3af8b5-b089-42d2-a587-23286d1e06b3",
+					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "7216",
+					"port": "5000",
 					"path": [
-						"api",
-						"product",
+						"catalog",
 						"ids"
 					],
 					"query": [
 						{
 							"key": "ids",
-							"value": "d121361b-1d7c-4415-b494-009ee496c205"
+							"value": "b32cb73e-9b62-46af-93be-20f3540ba9f2"
 						},
 						{
 							"key": "ids",
-							"value": "9b3d9816-a6cf-47f2-bd4f-16a823adec8c"
+							"value": "8b3af8b5-b089-42d2-a587-23286d1e06b3"
 						}
 					]
 				}

@@ -6,12 +6,17 @@
 # Criar o banco de dados na mão
 
 # Migrations do projeto Order
-# dotnet ef  migrations add initial-add-columns --project "ECommerce.Order" --startup-project "ECommerce.Order" --context "ECommerce.Order.Infra.OrderDbContext"
+# dotnet ef  migrations add initial --project "ECommerce.Order" --startup-project "ECommerce.Order" --context "ECommerce.Order.Infra.OrderDbContext"
 # dotnet ef database update --project "ECommerce.Order" --startup-project "ECommerce.Order" --context "ECommerce.Order.Infra.OrderDbContext"
 
 # Migrations do projeto Calatog
-# dotnet ef  migrations add initial-migration --project "ECommerce.Catalog" --startup-project "ECommerce.Catalog" --context "ECommerce.Catalog.Infra.CatalogDBContext"
+# dotnet ef  migrations add initial --project "ECommerce.Catalog" --startup-project "ECommerce.Catalog" --context "ECommerce.Catalog.Infra.CatalogDBContext"
 # dotnet ef database update --project "ECommerce.Catalog" --startup-project "ECommerce.Catalog" --context "ECommerce.Catalog.Infra.CatalogDBContext"
+
+
+# Migrations do projeto Payment
+# dotnet ef  migrations add initial --project "ECommerce.Payment" --startup-project "ECommerce.Payment" --context "ECommerce.Payment.Infra.PaymentDBContext"
+# dotnet ef database update --project "ECommerce.Payment" --startup-project "ECommerce.Payment" --context "ECommerce.Payment.Infra.PaymentDBContext"
 
 # Subir o RabbitMQ
 # docker pull rabbitmq:3-management

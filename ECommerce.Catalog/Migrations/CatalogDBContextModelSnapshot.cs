@@ -27,7 +27,7 @@ namespace ECommerce.Catalog.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("144267e5-2051-4c3a-a0a9-01b2ee5fe56c"));
+                        .HasDefaultValue(new Guid("3e6af2f9-f863-4be7-bffc-e5955fe4c2d1"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -46,72 +46,72 @@ namespace ECommerce.Catalog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d121361b-1d7c-4415-b494-009ee496c205"),
+                            Id = new Guid("57461727-c82d-4ed1-8e95-b9be7909214e"),
                             Description = "Atum",
-                            Price = 429.242828059365260m,
+                            Price = 182.907089399712695m,
                             Quantity = 10
                         },
                         new
                         {
-                            Id = new Guid("bce1ecc0-ea8e-43a5-8347-691eb973b304"),
+                            Id = new Guid("cb43d2e5-ddcf-4e88-8236-37b84f89c808"),
+                            Description = "Salsicha",
+                            Price = 296.857357674779435m,
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("aa6b6a42-2c0c-4b34-b2d3-256895465025"),
                             Description = "Frango",
-                            Price = 321.097393587491285m,
+                            Price = 175.0055013769145m,
                             Quantity = 10
                         },
                         new
                         {
-                            Id = new Guid("3af74a2c-de1c-4deb-bc59-bb54a2544f92"),
+                            Id = new Guid("d75999b8-7e48-4b62-adf9-99ac038b7802"),
                             Description = "Bola",
-                            Price = 378.265193931549425m,
+                            Price = 196.933722862309340m,
                             Quantity = 10
                         },
                         new
                         {
-                            Id = new Guid("011d281a-3743-4419-b218-1da1ec244928"),
-                            Description = "Teclado",
-                            Price = 190.015841579443160m,
+                            Id = new Guid("ba2985d7-fda6-4bc2-b1e5-a61d2928f30d"),
+                            Description = "Camiseta",
+                            Price = 142.270791389331710m,
                             Quantity = 10
                         },
                         new
                         {
-                            Id = new Guid("f5649983-33c1-4a4d-9930-e24b651e91db"),
-                            Description = "Luvas",
-                            Price = 219.134668027185455m,
+                            Id = new Guid("1a5249d1-c924-44ef-9212-e824cfa1d4c8"),
+                            Description = "Calças",
+                            Price = 112.94255232547160m,
                             Quantity = 10
                         },
                         new
                         {
-                            Id = new Guid("cb84eaf1-d048-4a9f-b7c5-f69d23a46a75"),
+                            Id = new Guid("30d7855b-3c53-4da0-be13-f6609f703a1e"),
+                            Description = "Bicicleta",
+                            Price = 495.481408533378680m,
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("1defafb2-69cc-46f0-9457-c78603bb4e1f"),
+                            Description = "Salada",
+                            Price = 408.710706872333630m,
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("b32cb73e-9b62-46af-93be-20f3540ba9f2"),
+                            Description = "Carro",
+                            Price = 117.829601270890790m,
+                            Quantity = 10
+                        },
+                        new
+                        {
+                            Id = new Guid("8b3af8b5-b089-42d2-a587-23286d1e06b3"),
                             Description = "Frango",
-                            Price = 210.498992430441215m,
-                            Quantity = 10
-                        },
-                        new
-                        {
-                            Id = new Guid("d0b35cc4-f48f-4354-9539-eca93a13a8d7"),
-                            Description = "Cadeira",
-                            Price = 498.064014599522630m,
-                            Quantity = 10
-                        },
-                        new
-                        {
-                            Id = new Guid("06804894-134e-457b-bb2f-c5b67a406ead"),
-                            Description = "Peixe",
-                            Price = 392.148567140259155m,
-                            Quantity = 10
-                        },
-                        new
-                        {
-                            Id = new Guid("9b3d9816-a6cf-47f2-bd4f-16a823adec8c"),
-                            Description = "Frango",
-                            Price = 111.082403591643380m,
-                            Quantity = 10
-                        },
-                        new
-                        {
-                            Id = new Guid("b45e6e1a-d75f-4cac-bda5-c60e6fa6a4c8"),
-                            Description = "Peixe",
-                            Price = 497.537901027077180m,
+                            Price = 419.089636952498705m,
                             Quantity = 10
                         });
                 });
