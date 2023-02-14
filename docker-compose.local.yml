@@ -3,15 +3,12 @@ version: '3.4'
 services:
   mssql:
     image: "mcr.microsoft.com/mssql/server"
-    container_name: mssql-local
+    container_name: ecommercemssql
+    volumes:
+      - mssql-server-data:/var/opt/mssql/data
     environment:
       SA_PASSWORD: "1q2w3e4r@#"
       ACCEPT_EULA: "Y"   
-    volumes:
-      - "./SqlScripts:/usr/src/app/"
-    command: 
-      - "/usr/src/app/sqlserver-init.sh"
-      - "/usr/src/app/migrations.sh"
     ports:
       - "11433:1433" 
 
