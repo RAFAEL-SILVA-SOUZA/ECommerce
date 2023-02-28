@@ -1,0 +1,36 @@
+rafael.hub.core@hotmail.com
+@hubcore@
+Heroku
+@hubcore@2022
+
+{
+  "email": "admin@email.com.br",
+  "password": "admin"
+}
+
+email
+
+
+docker pull postgres
+docker run --name hubcore -e POSTGRES_PASSWORD=hubcore -p 5432:5432 -d postgres
+
+
+docker build -t api-hubcore .
+heroku container:login
+heroku container:push web -a api-hubcore
+heroku container:release web -a api-hubcore
+
+Host
+ec2-23-20-73-25.compute-1.amazonaws.com
+Database
+d3t2bcv8f2clra
+User
+ztsoakpxgyxjko
+Port
+5432
+Password
+c58e7326fe425ad8643478dacf345eb2311f6d2f243e9331fab690db95d83ca1
+URI
+postgres://ztsoakpxgyxjko:c58e7326fe425ad8643478dacf345eb2311f6d2f243e9331fab690db95d83ca1@ec2-23-20-73-25.compute-1.amazonaws.com:5432/d3t2bcv8f2clra
+Heroku CLI
+heroku pg:psql postgresql-round-91765 --app api-hubcore
